@@ -1,0 +1,13 @@
+{% extends 'base/base.html'%}
+
+{% block content %}
+<h2>login</h2>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="username">
+    <input type="password" name="password" placeholder="password">
+    <input type="submit" name="submit" placeholder="login">
+
+</form>
+<p>don't have a account?<a href="{% url 'register' %}">Register now</a></p>
+{% endblock %}
