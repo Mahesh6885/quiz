@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "quiz",
+    "quiz","account","core"
 ]
+AUTH_USER_MODEL = "account.User" 
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
