@@ -1,6 +1,21 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<h1>Question</h1>
-<p></p>
+{% if questions %}
+    <h1>{{question.title}}</h1>  
+    <form method="POST">
+        {% csrf_token %}
+        {% for question in questions %}
+            <div>
+                <p><strong>{{forloop.counter}}.{{question.text}}</strong></p>
+                {% for choice in question.choice_set.all %}
+                    <label>
+                        <input type="radio" name="question_{{question.id}}" value="{{choice.id}}">
+                    {{choice.text}}
+                    </label><br>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </form>
+{% endif %}
 {% endblock %}
