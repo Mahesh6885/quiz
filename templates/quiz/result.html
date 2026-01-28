@@ -1,6 +1,13 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<h1>Result</h1>
-<p></p>
+<h1>{{quiz.title}} - Result</h1>
+<p><strong>Score : </strong>{{{total}}/{{score}}}</p>
+    {% if score == total %}
+        <p>🎉 Excellent!</p>
+    {% elif score >= total|divisibleby:2 %}
+        <p>👍 Good job!</p>
+    {% else %}
+        <p>📘 Keep practicing!</p>
+    {% endif %}
 {% endblock %}
