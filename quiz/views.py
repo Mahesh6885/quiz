@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from . models import Quiz,Question,Choice
+from . models import Quiz,Question,Choice,quizAttempt
 
 def quiz_list(request):
     quizes=Quiz.objects.filter(is_active=True)
@@ -17,10 +17,16 @@ def start_quiz(request,id):
         total=question.count()
         score=0
         for ques in question:
-            selected_c_id=request.POST.get("question_{ques.id}")
+            selected_c_id=request.POST.get(f"question_{ques.id}")
             if selected_c_id:
                 selected_choice=Choice.objects.get(id=selected_c_id)
                 if selected_choice.is_correct:
                     score+=1
+        quizAttempt.objects.create(
+            user=request.user,
+            quiz=quiz,
+            total=total,
+            score=score,
+        )
         return render(request,"quiz/result.html",{"quiz":quiz,"total":total,"score":score})
     return render(request,"quiz/question.html",{'quizs':quiz,'questions':question})

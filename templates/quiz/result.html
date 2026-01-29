@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>{{quiz.title}} - Result</h1>
-<p><strong>Score : </strong>{{{total}}/{{score}}}</p>
+<p><strong>Score : </strong>{ {{score}} / {{total}} }</p>
     {% if score == total %}
         <p>🎉 Excellent!</p>
     {% elif score >= total|divisibleby:2 %}
