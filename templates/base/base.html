@@ -2,20 +2,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quizz App</title>
-    <script src="{% static 'js/main.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script defer src="{% static 'js/main.js' %}"></script>
 </head>
 <body>
-    {% include "base/navbar.html" %}
-
+    <header class="navbar">
+        {% include "base/navbar.html" %}
+    </header>
     <main>
+        <div class="content-wrapper">
         {% block content %}
-        
+
         {% endblock %}
+        </div>
     </main>
 
-    {% include "base/footer.html" %}
+    <footer>
+        {% include "base/footer.html" %}
+    </footer>
 </body>
 </html>

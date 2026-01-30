@@ -22,11 +22,18 @@ def start_quiz(request,id):
                 selected_choice=Choice.objects.get(id=selected_c_id)
                 if selected_choice.is_correct:
                     score+=1
-        quizAttempt.objects.create(
+        attempt, created = quizAttempt.objects.get_or_create(
             user=request.user,
             quiz=quiz,
-            total=total,
-            score=score,
+            defaults={
+                'total': total,
+                'score': score
+            }
         )
+
+        if not created:
+            attempt.total = total
+            attempt.score = score
+            attempt.save()
         return render(request,"quiz/result.html",{"quiz":quiz,"total":total,"score":score})
     return render(request,"quiz/question.html",{'quizs':quiz,'questions':question})

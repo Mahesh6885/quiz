@@ -2,16 +2,16 @@
 
 {% block content %}
 
-<h1>{{quiz.title}}</h1><br>
-<p>{{quiz.description}}</p><br>
-<h3>Time Limit: {{quiz.time_limit}} seconds</h3><br>
-<h3>Instructions</h3>
+<h1 style="color: #ff6b9d;">{{quiz.title}}</h1><br>
+<p style="color: #ffffff;">{{quiz.description}}</p><br>
+<h3 style="color: #ff9ec3;">Time Limit: {{quiz.time_limit}} seconds</h3><br>
+<h3 style="color: #ff9ec3;">Instructions</h3>
 <ul>
-    <li>Each question has one correct answer</li>
-    <li>No negative marking</li>
-    <li>You cannot go back once submitted</li>
-    <li>Quiz auto-submits when time ends</li>
+    <li style="color: #ffffff;">Each question has one correct answer</li>
+    <li style="color: #ffffff;">No negative marking</li>
+    <li style="color: #ffffff;">You cannot go back once submitted</li>
+    <li style="color: #ffffff;">Quiz auto-submits when time ends</li>
 </ul>
 <a href="{% url 'start_quiz' quiz.id %}"><button>Start Quiz</button></a>
-<a href="{% url 'quiz_list' %}">Back</a>
+<a href="{% url 'quiz_list' %}" style="color: #ff6b9d;">Back</a>
 {% endblock %}

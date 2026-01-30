@@ -6,12 +6,12 @@
     <ul>
     {% for quiz in quizes %}
         <li>
-            <b><a href="{% url 'quiz_detail' quiz.id %}">{{quiz.title}}</b></a><br>
+            <b><a href="{% url 'quiz_detail' quiz.id %}">{{quiz.title}}</a></b><br>
             <p>{{quiz.description}}</p><br>
-            <b>{{quiz.time_limit}}</b>
+            <b>Time Limit: {{quiz.time_limit}} seconds</b>
         </li>
-    </ul> 
     {% endfor %}
+    </ul>
 {% else %}
     <p>No Quizes available</p>
 {% endif %}

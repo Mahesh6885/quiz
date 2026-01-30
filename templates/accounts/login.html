@@ -1,15 +1,15 @@
 {% extends 'base/base.html'%}
 
 {% block content %}
-<h2>login</h2>
+<h2 style="color: #ff6b9d;">Login</h2>
 <form method="POST">
     {% csrf_token %}
-    <input type="text" name="user_name" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit" name="submit" placeholder="login">
+    <input type="text" name="user_name" placeholder="username" style="color: #ffffff;">
+    <input type="password" name="password" placeholder="password" style="color: #ffffff;">
+    <input type="submit" name="submit" value="Login">
     {% if error %}
-    <p style="color: red;">{{error}}</p>
+    <p style="color: #ff6b9d; background: rgba(255, 107, 157, 0.15); padding: 1rem; border-radius: 8px; border-left: 4px solid #ff6b9d;">{{error}}</p>
     {% endif %}
 </form>
-<p>don't have a account?<a href="{% url 'register' %}">Register now</a></p>
+<p style="color: #ffffff; text-align: center;">Don't have an account? <a href="{% url 'register' %}" style="color: #ff6b9d;">Register now</a></p>
 {% endblock %}
