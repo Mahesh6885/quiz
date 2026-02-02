@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="auth-wrap">
-    <div class="auth-card card">
+    <div class="auth-card">
         <h2>Login</h2>
         <form method="POST">
             {% csrf_token %}
@@ -10,10 +10,11 @@
             <input type="password" name="password" placeholder="Password">
             <input type="submit" name="submit" value="Login">
             {% if error %}
-                <p class="meta" style="background: rgba(255, 107, 157, 0.08); padding: 0.75rem; border-radius: 8px; border-left: 4px solid #ff6b9d; color:#ff6b9d">{{ error }}</p>
+            <p class="error-message">{{ error }}</p>
             {% endif %}
         </form>
-        <p class="meta" style="margin-top:8px">Don't have an account? <a href="{% url 'register' %}" style="color: var(--primary);">Register now</a></p>
+        <p class="meta" style="margin-top:8px">Don't have an account? <a href="{% url 'register' %}">Register now</a>
+        </p>
     </div>
 </div>
 {% endblock %}

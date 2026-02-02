@@ -1,17 +1,31 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from . models import Quiz,Question,Choice,quizAttempt
 
+from . models import Quiz,Question,Choice,quizAttempt,Category
+
 def quiz_list(request):
-    quizes=Quiz.objects.filter(is_active=True)
-    return render(request,'quiz/quiz_list.html',{'quizes':quizes})
+    # Fetch categories that have at least one active quiz
+    categories = Category.objects.filter(quiz__is_active=True).distinct().prefetch_related('quiz_set')
+    return render(request, 'quiz/quiz_list.html', {'categories': categories})
 
 def quiz_detail(request,id):
     quiz=get_object_or_404(Quiz,id=id,is_active=True)
     return render(request,"quiz/quiz_detail.html",{'quiz':quiz})
 
+@login_required(login_url='login')
 def start_quiz(request,id):
     quiz=get_object_or_404(Quiz,id=id,is_active=True)
+    existing_attempt = quizAttempt.objects.filter(user=request.user, quiz=quiz).first()
+    if existing_attempt:
+        return render(request, "quiz/result.html", {
+            "quiz": quiz,
+            "total": existing_attempt.total,
+            "score": existing_attempt.score,
+            "error_message": "You can't attempt the quiz more than once"
+        })
+        
     question=Question.objects.filter(quiz=quiz).prefetch_related('choice_set')
     if request.method=="POST":
         total=question.count()
@@ -37,3 +51,7 @@ def start_quiz(request,id):
             attempt.save()
         return render(request,"quiz/result.html",{"quiz":quiz,"total":total,"score":score})
     return render(request,"quiz/question.html",{'quizs':quiz,'questions':question})
+
+def leaderboard(request):
+    attempts = quizAttempt.objects.select_related('user', 'quiz').order_by('-score')[:20]
+    return render(request, 'quiz/leaderboard.html', {'attempts': attempts})

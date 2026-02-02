@@ -1,18 +1,54 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<h1>Quiz List</h1>
-{% if quizes %}
-    <ul>
-    {% for quiz in quizes %}
-        <li>
-            <b><a href="{% url 'quiz_detail' quiz.id %}">{{quiz.title}}</a></b><br>
-            <p>{{quiz.description}}</p><br>
-            <b>Time Limit: {{quiz.time_limit}} seconds</b>
-        </li>
-    {% endfor %}
-    </ul>
+<div style="margin-bottom: 3rem;">
+    <h1 class="text-gradient" style="margin-bottom: 0.5rem;">Explore Quizzes</h1>
+    <p style="color: var(--text-muted); font-size: 1.1rem;">Choose a category to start challenging yourself.</p>
+</div>
+
+{% if categories %}
+{% for category in categories %}
+<div class="category-section">
+    <div class="category-header">
+        <h2 class="category-title">{{ category.name }}</h2>
+        <span class="category-badge">{{ category.quiz_set.count }} Quizzes</span>
+    </div>
+
+    <div class="quiz-grid">
+        {% for quiz in category.quiz_set.all %}
+        {% if quiz.is_active %}
+        <div class="quiz-card-enhanced">
+            <div class="quiz-icon-wrapper">
+                <!-- Dynamic icon based on category name could be added here, using generic for now -->
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+
+            <h3 class="quiz-title">{{ quiz.title }}</h3>
+            <p class="quiz-desc">{{ quiz.description|truncatewords:15 }}</p>
+
+            <div class="quiz-meta-flex">
+                <div class="quiz-stat">
+                    <i class="fa-regular fa-clock"></i> {{ quiz.time_limit }}s
+                </div>
+                <a href="{% url 'quiz_detail' quiz.id %}" class="btn-start">
+                    Start <i class="fa-solid fa-arrow-right" style="font-size: 0.8em;"></i>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
 {% else %}
-    <p>No Quizes available</p>
+<div class="auth-wrap">
+    <div class="auth-card">
+        <div style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem;">
+            <i class="fa-solid fa-box-open"></i>
+        </div>
+        <h3>No Quizzes Available</h3>
+        <p>Check back later for new challenges!</p>
+    </div>
+</div>
 {% endif %}
 {% endblock %}

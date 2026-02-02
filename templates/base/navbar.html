@@ -1,9 +1,27 @@
-<div class="nav-container">
-        <a href="/" class="logo">Quizz App</a>
+<nav class="navbar-container">
+    <a href="/" class="nav-logo">
+        <i class="fa-solid fa-brain"></i>
+        <span>Quizz App</span>
+    </a>
 
-        <ul class="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">About us</a></li>
-        </ul>
-    </div>
+    <button class="mobile-menu-btn" aria-label="Toggle navigation">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+
+    <ul class="nav-links">
+        <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+        <li><a href="{% url 'leaderboard' %}" class="nav-link">Leaderboard</a></li>
+
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'profile' %}" class="nav-link">Profile</a></li>
+        <li><a href="{% url 'logout' %}" class="nav-cta"
+                style="background: var(--surface-bg); color: var(--text-color); border: 1px solid var(--border-color);">Logout</a>
+        </li>
+        {% else %}
+        <li><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+        <li><a href="{% url 'register' %}" class="nav-cta">Get Started</a></li>
+        {% endif %}
+    </ul>
+</nav>

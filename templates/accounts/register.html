@@ -1,15 +1,20 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<h1 style="color: #ff6b9d; text-align: center;">Register Form</h1>
-<form method="POST">
-{% csrf_token %}
-    <input type="text" name="user_name" placeholder="User Name" style="color: #ffffff;">
-    <input type="email" name="email" placeholder="E-Mail" style="color: #ffffff;">
-    <input type="text" name="password" placeholder="Password" style="color: #ffffff;">
-    <button type="submit">Submit</button>
-    {% if error %}
-    <p style="color: #ff6b9d; background: rgba(255, 107, 157, 0.15); padding: 1rem; border-radius: 8px; border-left: 4px solid #ff6b9d;">{{error}}</p>
-    {% endif %}
-</form>
+<div class="auth-wrap">
+    <div class="auth-card">
+        <h2>Register</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="user_name" placeholder="User Name">
+            <input type="email" name="email" placeholder="E-Mail">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Register</button>
+            {% if error %}
+            <p class="error-message">{{error}}</p>
+            {% endif %}
+        </form>
+        <p class="meta" style="margin-top: 1rem;">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+</div>
 {% endblock %}

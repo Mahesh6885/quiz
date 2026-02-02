@@ -1,13 +1,35 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<h1>{{quiz.title}} - Result</h1>
-<p><strong>Score : </strong>{ {{score}} / {{total}} }</p>
-    {% if score == total %}
-        <p>🎉 Excellent!</p>
-    {% elif score >= total|divisibleby:2 %}
-        <p>👍 Good job!</p>
-    {% else %}
-        <p>📘 Keep practicing!</p>
-    {% endif %}
+<div class="auth-wrap">
+    <div class="result-card" style="text-align: center;">
+        {% if error_message %}
+        <div
+            style="background: #fee2e2; color: #ef4444; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem; border-left: 4px solid #ef4444;">
+            <i class="fa-solid fa-circle-exclamation"></i> {{ error_message }}
+        </div>
+        {% endif %}
+        <h1>Quiz Results</h1>
+        <h3 style="color: var(--text-muted); margin-bottom: 2rem;">{{quiz.title}}</h3>
+
+        <div class="score-box">
+            <div class="score-number">{{score}} / {{total}}</div>
+            <p class="score-text">Your Score</p>
+        </div>
+
+        <div style="font-size: 1.5rem; margin-bottom: 2rem;">
+            {% if score == total %}
+            <p style="color: #4ade80;"><i class="fa-solid fa-trophy"></i> Excellent! Perfect Score!</p>
+            {% elif score >= total|divisibleby:2 %}
+            <p style="color: var(--primary);"><i class="fa-solid fa-thumbs-up"></i> Good job! You passed.</p>
+            {% else %}
+            <p style="color: #ef4444;"><i class="fa-solid fa-book-open"></i> Keep practicing! You can do better.</p>
+            {% endif %}
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 1rem;">
+            <a href="{% url 'quiz_list' %}" class="cta-button">Back to Quizzes</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

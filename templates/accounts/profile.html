@@ -1,6 +1,75 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<h1>Profile</h1>
-<p>This is the profile page</p>
+<div class="auth-wrap">
+    <div class="profile-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div
+                    style="width: 64px; height: 64px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">
+                    {{ user.username|make_list|first|upper }}
+                </div>
+                <div style="text-align: left;">
+                    <h2 style="margin: 0;">{{ user.username }}</h2>
+                    <p style="color: var(--text-muted); margin: 0;">{{ user.email }}</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem;">
+                <a href="{% url 'quiz_list' %}" class="cta-button" style="text-decoration: none;">Take New Quiz</a>
+                <a href="{% url 'home' %}" class="cta-button"
+                    style="text-decoration: none; background: var(--bg-body); color: var(--text-color); border: 1px solid rgba(0,0,0,0.1);">Home</a>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-number">{{ total_quizzes }}</div>
+                <div class="stat-label">Quizzes Taken</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">{{ total_score }}</div>
+                <div class="stat-label">Total Points</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; text-align: left;">
+            <h3
+                style="margin-bottom: 1.5rem; color: var(--primary); border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 0.5rem;">
+                <i class="fa-solid fa-clock-rotate-left"></i> Recent Activity
+            </h3>
+
+            <div class="table-responsive">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Quiz Title</th>
+                            <th>Score</th>
+                            <th>Date Attempted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for attempt in attempts %}
+                        <tr>
+                            <td><strong>{{ attempt.quiz.title }}</strong></td>
+                            <td>
+                                <span class="score-badge">{{ attempt.score }} / {{ attempt.total }}</span>
+                            </td>
+                            <td style="font-size: 0.9rem; color: var(--text-muted);">
+                                {{ attempt.created_at|date:"M d, Y h:i A" }}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                                No quizzes attempted yet.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

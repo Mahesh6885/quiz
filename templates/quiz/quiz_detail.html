@@ -1,17 +1,32 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
+<div class="auth-wrap">
+    <div class="quiz-detail-card">
+        <h1>{{quiz.title}}</h1>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">{{quiz.description}}</p>
 
-<h1 style="color: #ff6b9d;">{{quiz.title}}</h1><br>
-<p style="color: #ffffff;">{{quiz.description}}</p><br>
-<h3 style="color: #ff9ec3;">Time Limit: {{quiz.time_limit}} seconds</h3><br>
-<h3 style="color: #ff9ec3;">Instructions</h3>
-<ul>
-    <li style="color: #ffffff;">Each question has one correct answer</li>
-    <li style="color: #ffffff;">No negative marking</li>
-    <li style="color: #ffffff;">You cannot go back once submitted</li>
-    <li style="color: #ffffff;">Quiz auto-submits when time ends</li>
-</ul>
-<a href="{% url 'start_quiz' quiz.id %}"><button>Start Quiz</button></a>
-<a href="{% url 'quiz_list' %}" style="color: #ff6b9d;">Back</a>
+        <div class="instruction-list">
+            <li>
+                <i class="fa-solid fa-clock"></i>
+                <div>
+                    <strong>Time Limit</strong>
+                    <p>{{quiz.time_limit}} Seconds</p>
+                </div>
+            </li>
+            <li>
+                <i class="fa-solid fa-check-double"></i>
+                <div>
+                    <strong>Instructions</strong>
+                    <p>Single correct answer per question. No negative marking.</p>
+                </div>
+            </li>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+            <a href="{% url 'quiz_list' %}" class="cta-button" style="background: var(--text-muted);">Back</a>
+            <a href="{% url 'start_quiz' quiz.id %}" class="cta-button">Start Quiz</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

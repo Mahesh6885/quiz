@@ -1,36 +1,49 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<div class="instructions">
-    <h1 style="color: #ff6b9d;">Quiz Instructions</h1>
-    <h3 style="color: #ffffff;">Please Read Carefully Before Starting</h3>
-    
-    <h3 style="color: #ff9ec3;">📋 Important Rules:</h3>
-    <ul>
-        <li><strong style="color: #ffffff;">Single Correct Answer:</strong> <span style="color: #ffffff;">Each question has only one correct answer. Select carefully.</span></li>
-        <li><strong style="color: #ffffff;">No Negative Marking:</strong> <span style="color: #ffffff;">You won't be penalized for wrong answers.</span></li>
-        <li><strong style="color: #ffffff;">No Going Back:</strong> <span style="color: #ffffff;">Once you submit an answer, you cannot go back to change it.</span></li>
-        <li><strong style="color: #ffffff;">Auto Submit:</strong> <span style="color: #ffffff;">If time runs out, your quiz will be automatically submitted.</span></li>
-        <li><strong style="color: #ffffff;">Time Limit:</strong> <span style="color: #ffffff;">Complete the quiz within the given time limit.</span></li>
-        <li><strong style="color: #ffffff;">One Attempt:</strong> <span style="color: #ffffff;">You get only one attempt per quiz.</span></li>
-    </ul>
-    
-    <h3 style="color: #ff9ec3;">⚡ Quick Tips:</h3>
-    <ul>
-        <li style="color: #ffffff;">Read each question thoroughly before answering.</li>
-        <li style="color: #ffffff;">Don't rush - take your time to think.</li>
-        <li style="color: #ffffff;">Skip difficult questions and come back to them later.</li>
-        <li style="color: #ffffff;">Keep track of the remaining time.</li>
-        <li style="color: #ffffff;">Review your answers before final submission.</li>
-    </ul>
-    
-    <h3 style="color: #ff9ec3;">✅ What Happens Next:</h3>
-    <ul>
-        <li style="color: #ffffff;">Your answers will be evaluated immediately after submission.</li>
-        <li style="color: #ffffff;">You'll see your score and performance report.</li>
-        <li style="color: #ffffff;">Detailed results will help you identify areas to improve.</li>
-    </ul>
-    
-    <p style="margin-top: 2rem; font-size: 1.1rem; color: #4ade80;"><strong>Good luck! 🍀</strong></p>
+<div class="auth-wrap">
+    <div class="instruction-card">
+        <h1>Quiz Instructions</h1>
+        <h3 style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Please Read Carefully Before
+            Starting</h3>
+
+        <h3 style="color: var(--primary); margin-bottom: 1rem;"><i class="fa-solid fa-clipboard-list"></i> Important
+            Rules:</h3>
+        <ul class="instruction-list">
+            <li><i class="fa-solid fa-check"></i>
+                <div><strong>Single Correct Answer:</strong> Each question has only one correct answer. Select
+                    carefully.</div>
+            </li>
+            <li><i class="fa-solid fa-check"></i>
+                <div><strong>No Negative Marking:</strong> You won't be penalized for wrong answers.</div>
+            </li>
+            <li><i class="fa-solid fa-turn-up"></i>
+                <div><strong>No Going Back:</strong> Once you submit an answer, you cannot go back to change it.</div>
+            </li>
+            <li><i class="fa-solid fa-hourglass-half"></i>
+                <div><strong>Auto Submit:</strong> If time runs out, your quiz will be automatically submitted.</div>
+            </li>
+            <li><i class="fa-solid fa-stopwatch"></i>
+                <div><strong>Time Limit:</strong> Complete the quiz within the given time limit.</div>
+            </li>
+            <li><i class="fa-solid fa-play"></i>
+                <div><strong>One Attempt:</strong> You get only one attempt per quiz.</div>
+            </li>
+        </ul>
+
+        <h3 style="color: var(--primary); margin-bottom: 1rem; margin-top: 2rem;"><i class="fa-solid fa-bolt"></i> Quick
+            Tips:</h3>
+        <ul class="instruction-list">
+            <li><i class="fa-solid fa-eye"></i> Read each question thoroughly before answering.</li>
+            <li><i class="fa-solid fa-brain"></i> Don't rush - take your time to think.</li>
+            <li><i class="fa-solid fa-clock"></i> Keep track of the remaining time.</li>
+        </ul>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <p style="margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--primary);"><strong>Good luck! 🍀</strong>
+            </p>
+            <a href="javascript:history.back()" class="cta-button">Start Quiz</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

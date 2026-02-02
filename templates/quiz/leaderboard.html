@@ -1,0 +1,67 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="auth-wrap">
+    <div class="instruction-card" style="max-width: 900px;">
+        <h1><i class="fa-solid fa-trophy" style="color: #fbbf24; margin-right: 0.5rem;"></i> Leaderboard</h1>
+        <h3 style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Top Performers</h3>
+
+        <div class="table-responsive">
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th width="10%">Rank</th>
+                        <th>User</th>
+                        <th>Quiz</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attempt in attempts %}
+                    <tr class="{% if forloop.counter <= 3 %}top-rank{% endif %}">
+                        <td>
+                            {% if forloop.counter == 1 %}
+                            <i class="fa-solid fa-crown" style="color: #fbbf24;"></i>
+                            {% elif forloop.counter == 2 %}
+                            <i class="fa-solid fa-medal" style="color: #94a3b8;"></i>
+                            {% elif forloop.counter == 3 %}
+                            <i class="fa-solid fa-medal" style="color: #b45309;"></i>
+                            {% else %}
+                            #{{ forloop.counter }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <div
+                                    style="width: 32px; height: 32px; background: var(--bg-body); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--primary);">
+                                    {{ attempt.user.username|make_list|first|upper }}
+                                </div>
+                                {{ attempt.user.username }}
+                            </div>
+                        </td>
+                        <td>{{ attempt.quiz.title }}</td>
+                        <td>
+                            <span class="score-badge">{{ attempt.score }} / {{ attempt.total }}</span>
+                        </td>
+                        <td style="font-size: 0.9rem; color: var(--text-muted);">
+                            {{ attempt.created_at|date:"M d, Y" }}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 2rem;">
+                            No attempts yet. Be the first to top the leaderboard!
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="{% url 'quiz_list' %}" class="cta-button">Take a Quiz</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

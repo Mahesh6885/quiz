@@ -1,6 +1,12 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from .models import User
+from quiz.models import quizAttempt
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
+
 def login_view(request):
     if request.method=="POST":
         username=request.POST.get("user_name")
@@ -17,7 +23,17 @@ def login_view(request):
     return render(request,"accounts/login.html")
  
 def profile(request):
-    return render(request,"accounts/profile.html")
+    attempts = quizAttempt.objects.filter(user=request.user).select_related('quiz').order_by('-created_at')
+    
+    total_quizzes = attempts.count()
+    total_score = sum(attempt.score for attempt in attempts)
+    
+    context = {
+        'attempts': attempts,
+        'total_quizzes': total_quizzes,
+        'total_score': total_score
+    }
+    return render(request, "accounts/profile.html", context)
 
 def register(request):
     if request.method=="POST":

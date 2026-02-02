@@ -1,22 +1,30 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-{% if questions %}
-    <h1>{{question.title}}</h1>  
-    <form method="POST">
-        {% csrf_token %}
-        {% for question in questions %}
-            <div>
-                <p><strong>{{forloop.counter}}.{{question.text}}</strong></p>
-                {% for choice in question.choice_set.all %}
-                    <label>
+<div class="auth-wrap">
+    {% if questions %}
+    <div class="question-card">
+        <h1>{{question.title}}</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {% for question in questions %}
+            <div class="question-item">
+                <p class="question-text">{{forloop.counter}}. {{question.text}}</p>
+                <div class="options-grid">
+                    {% for choice in question.choice_set.all %}
+                    <label class="option-label">
                         <input type="radio" name="question_{{question.id}}" value="{{choice.id}}">
-                    {{choice.text}}
-                    </label><br>
-                {% endfor %}
+                        <span>{{choice.text}}</span>
+                    </label>
+                    {% endfor %}
+                </div>
             </div>
-        {% endfor %}
-        <button type="submit" >Submit</button>
-    </form>
-{% endif %}
+            {% endfor %}
+            <div style="text-align: right; margin-top: 2rem;">
+                <button type="submit" class="cta-button">Submit Answer</button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
