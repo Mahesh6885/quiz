@@ -6,22 +6,16 @@
     <p style="color: var(--text-muted); font-size: 1.1rem;">Choose a category to start challenging yourself.</p>
 </div>
 
-{% if categories %}
-{% for category in categories %}
-<div class="category-section">
-    <div class="category-header">
-        <h2 class="category-title">{{ category.name }}</h2>
-        <span class="category-badge">{{ category.quiz_set.count }} Quizzes</span>
-    </div>
-
+{% if quizzes %}
+<div class="category-section"> <!-- Retained for spacing, can be renamed/removed if purely optional -->
     <div class="quiz-grid">
-        {% for quiz in category.quiz_set.all %}
-        {% if quiz.is_active %}
+        {% for quiz in quizzes %}
         <div class="quiz-card-enhanced">
             <div class="quiz-icon-wrapper">
-                <!-- Dynamic icon based on category name could be added here, using generic for now -->
                 <i class="fa-solid fa-layer-group"></i>
             </div>
+
+            <span class="badge-category">{{ quiz.category.name }}</span>
 
             <h3 class="quiz-title">{{ quiz.title }}</h3>
             <p class="quiz-desc">{{ quiz.description|truncatewords:15 }}</p>
@@ -35,11 +29,9 @@
                 </a>
             </div>
         </div>
-        {% endif %}
         {% endfor %}
     </div>
 </div>
-{% endfor %}
 {% else %}
 <div class="auth-wrap">
     <div class="auth-card">

@@ -6,9 +6,9 @@ from . models import Quiz,Question,Choice,quizAttempt
 from . models import Quiz,Question,Choice,quizAttempt,Category
 
 def quiz_list(request):
-    # Fetch categories that have at least one active quiz
-    categories = Category.objects.filter(quiz__is_active=True).distinct().prefetch_related('quiz_set')
-    return render(request, 'quiz/quiz_list.html', {'categories': categories})
+    # Fetch all active quizzes
+    quizzes = Quiz.objects.filter(is_active=True).select_related('category')
+    return render(request, 'quiz/quiz_list.html', {'quizzes': quizzes})
 
 def quiz_detail(request,id):
     quiz=get_object_or_404(Quiz,id=id,is_active=True)
@@ -53,5 +53,21 @@ def start_quiz(request,id):
     return render(request,"quiz/question.html",{'quizs':quiz,'questions':question})
 
 def leaderboard(request):
-    attempts = quizAttempt.objects.select_related('user', 'quiz').order_by('-score')[:20]
-    return render(request, 'quiz/leaderboard.html', {'attempts': attempts})
+    categories = Category.objects.all()
+    active_category_id = request.GET.get('category')
+    
+    if active_category_id:
+        active_category = get_object_or_404(Category, id=active_category_id)
+    else:
+        active_category = categories.first()
+        
+    attempts = []
+    if active_category:
+        attempts = quizAttempt.objects.filter(quiz__category=active_category).select_related('user', 'quiz').order_by('-score')[:20]
+            
+    context = {
+        'categories': categories,
+        'active_category': active_category,
+        'attempts': attempts
+    }
+    return render(request, 'quiz/leaderboard.html', context)
