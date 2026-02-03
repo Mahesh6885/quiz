@@ -11,12 +11,7 @@
             style="display: flex; gap: 1rem; margin-bottom: 2rem; overflow-x: auto; padding-bottom: 0.5rem; justify-content: center;">
             {% for category in categories %}
             <a href="?category={{ category.id }}"
-                class="tab-link {% if category.id == active_category.id %}active{% endif %}" style="padding: 0.5rem 1.5rem; border-radius: 50px; font-weight: 600; font-size: 0.95rem; white-space: nowrap; transition: all 0.3s ease; text-decoration: none;
-                      {% if category.id == active_category.id %}
-                      background: var(--gradient-main); color: white; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-                      {% else %}
-                      background: var(--bg-body); color: var(--text-muted); border: 1px solid rgba(0,0,0,0.05);
-                      {% endif %}">
+                class="tab-link {% if category.id == active_category.id %}active{% endif %}">
                 {{ category.name }}
             </a>
             {% endfor %}
