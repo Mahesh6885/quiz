@@ -5,6 +5,7 @@
     <div class="auth-card">
         <h2>Login</h2>
         <form method="POST">
+            
             {% csrf_token %}
             <input type="text" name="user_name" placeholder="Username">
             <input type="password" name="password" placeholder="Password">
@@ -12,9 +13,11 @@
             {% if error %}
             <p class="error-message">{{ error }}</p>
             {% endif %}
+
         </form>
         <p class="meta" style="margin-top:8px">Don't have an account? <a href="{% url 'register' %}">Register now</a>
         </p>
+
     </div>
 </div>
 {% endblock %}
