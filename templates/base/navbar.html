@@ -19,9 +19,12 @@
         <li><a href="{% url 'logout' %}" class="nav-cta"
                 style="background: var(--surface-bg); color: var(--text-color); border: 1px solid var(--border-color);">Logout</a>
         </li>
+
         {% else %}
+        
         <li><a href="{% url 'login' %}" class="nav-link">Login</a></li>
         <li><a href="{% url 'register' %}" class="nav-cta">Get Started</a></li>
         {% endif %}
+
     </ul>
 </nav>
